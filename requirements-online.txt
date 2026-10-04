@@ -72,4 +72,4 @@ numpy==2.3.5 \
     --hash=sha256:ffac52f28a7849ad7576293c0cb7b9f08304e8f7d738a8cb8a90ec4c55a998eb \
     --hash=sha256:ffe22d2b05504f786c867c8395de703937f934272eb67586817b46188b4ded6d \
     --hash=sha256:fffe29a1ef00883599d1dc2c51aa2e5d80afe49523c261a74933df395c15c520
-./wheelhouse/knorm_projection-0.1-py3-none-any.whl --hash=sha256:5bc83e4235e8a13803bdae0173ff0d4b118f00a8cb3582c3a28f77e1b81fac41
+./wheelhouse/knorm_projection-0.1-py3-none-any.whl --hash=sha256:731b9e7cba79df4f1a4a700dccff4f436aec11638d561055f9a8654cc500a06a

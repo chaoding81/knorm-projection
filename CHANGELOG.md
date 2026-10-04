@@ -1,12 +1,14 @@
-# 版本记录
+# Changelog
 
-## 0.1 — 2026-10-04
+## 0.1 - 2026-10-04
 
-- 建立独立 NumPy 基线与优化版，保留四个 MATLAB 投影源文件的逐字节快照，并记录全部 46 个原 MATLAB 源码的哈希。
-- 一般 k 使用平移、缩放、区间保护的阈值求解与活跃集验证。
-- k=2 使用至多两次已排序单纯形投影，并可显式强制使用一般路径作对照。
-- 添加显式 Hermitian/eigh 路径、按列缩放与零谱方向省略、直接谱重构的近端映射。
-- 正确处理零半径、空输入、标量、截断等式边界及非法参数；不增加数值秩截断。
-- 提供独立高精度对照、20 项测试、原始源码保护检查、可复现基准和全部测量结果，报告未提速的实例。
+- Added separate NumPy baseline and optimized implementations, four byte-preserved MATLAB projection snapshots, and hashes of all 46 original MATLAB source files.
+- Implemented a general-k threshold solver with translation, scaling, bracket protection, and active-set verification.
+- Added a specialized k=2 method using at most two sorted simplex projections, with an option to force the general method for comparison.
+- Added an explicit Hermitian/eigh path, column-scaled reconstruction, omission of zero spectral directions, and direct spectral reconstruction of the proximal mapping.
+- Handled zero radii, empty input, scalar cases, clipping boundaries, and invalid parameters without numerical rank truncation.
+- Added independent high-precision references, 20 algorithm tests, source-preservation checks, reproducible benchmarks, and records of cases that did not improve.
+- Packaged offline Windows dependencies, four configurations, replayable examples, and three release tests, for 23 tests in total.
+- Revised public documentation, documentation examples, wheel metadata, and Release notes to English. The version remains 0.1; algorithms, tolerances, and original MATLAB snapshots are unchanged.
 
-原 MATLAB 文件、旧检查脚本及其历史结果未修改。Python 基线修复必要边界分支，因此不是对原有边界错误的逐行模拟；它也不能用于声称 MATLAB 获得了相同提速。
+The Python baseline includes necessary boundary fixes and does not reproduce the original boundary failures. Its timings do not establish MATLAB speedups. Earlier local packages and verification records are preserved.

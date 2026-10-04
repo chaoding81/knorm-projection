@@ -1,17 +1,23 @@
-# v0.1 公开发布记录
+# v0.1 publication record
 
-GitHub 仓库：<https://github.com/chaoding81/knorm-projection>。
+Repository: <https://github.com/chaoding81/knorm-projection>.
 
-本次发布沿用已经验证的 0.1 算法。`knorm_projection/` 三个源文件和 `original_matlab/` 四个快照，与本地已交付版本逐字节相同。
+The three files in `knorm_projection/` and four snapshots in `original_matlab/` are byte-identical to the previously validated local 0.1 implementation.
 
-发布准备只调整分发与报告元数据：
+Publication preparation changed distribution and report metadata:
 
-- 增加仓库、Release 和完整 ZIP 的下载链接。
-- 把报告中的本机绝对路径替换为 `${PYTHON}`、`${SOURCE_ROOT}`、`${VENV}`、`${OUTPUTS}` 或 `${BUILD_ROOT}` 占位符；数值结果和测试结论未改变。
-- 更新公开报告的位置和对应哈希，并保留原始输出哈希。历史报告中的源码哈希继续指向当时接受检查的源码，不伪装成重新运行的结果。
-- 重新构建含当前说明的 Python wheel，并重新生成依赖锁定哈希、发布清单和 ZIP 校验码。
-- 添加 Git 忽略规则和字节保留规则；虚拟环境、缓存、安装测试目录及临时构建目录不进入仓库。
+- Added repository, Release, and complete-ZIP links.
+- Replaced local absolute paths with `${PYTHON}`, `${SOURCE_ROOT}`, `${VENV}`, `${OUTPUTS}`, or `${BUILD_ROOT}` placeholders, preserving numerical measurements and test outcomes.
+- Updated public report locations and hashes while retaining original output hashes. Historical source hashes still identify the code tested at the time; those records are not presented as new executions.
+- Rebuilt the wheel with current documentation and regenerated dependency hashes, the release manifest, and ZIP checksum.
+- Added Git ignore and byte-preservation rules. Environments, caches, installation-test directories, and temporary builds are excluded from the repository.
 
-因此 GitHub 完整 ZIP 的校验码与此前本地 ZIP 不同。版本仍为 0.1；算法、容差及基准结论保持一致。本地原安装包保留，未被覆盖。
+## English revision
 
-完整安装包针对 CPython 3.12 / Windows x86-64 提供离线依赖；其他受支持的平台使用在线安装。运行时第三方依赖固定为 NumPy 2.3.5。
+At the user's request, public documentation, documentation examples, wheel metadata, and Release notes are now in English. The Python source, comments, errors, and installer scripts were already in English and remain unchanged.
+
+The existing `v0.1` source tag and Release attachments are updated together for this language correction. The software version remains 0.1. The model, algorithms, tolerances, and benchmark measurements are unchanged; earlier local archives and the previous Git commit are preserved.
+
+Rebuilding changes the distribution checksum. Use the `.sha256` file supplied with the current Release assets.
+
+The complete bundle provides offline dependencies for CPython 3.12 on Windows x86-64. Other supported combinations use online installation. The runtime dependency is pinned to NumPy 2.3.5.

@@ -1,104 +1,104 @@
-# k-norm 投影算法说明 0.1
+# k-norm projection algorithm, version 0.1
 
-本文件保留算法推导与开发阶段验证记录。release 的安装与配置入口见 [README](../README.md)；release 校验默认只依赖随包快照。
+This document records the algorithm and its development-stage verification. See the [README](../README.md) for installation and configuration. Portable release checks use the bundled source snapshots by default.
 
-本目录提供矩阵 Ky Fan k-范数**对偶球的 Frobenius 投影**，以及对应的近端映射。原 MATLAB 代码保留在原位置；`original_matlab/` 另存四个投影源文件的逐字节副本。
+The package provides the Frobenius projection onto a matrix Ky Fan k-norm dual ball and the corresponding proximal mapping. Four original MATLAB projection files are preserved byte-for-byte in `original_matlab/`.
 
-## 范围与文件
+## Scope and implementation
 
-- `knorm_projection/baseline.py`：按原 `Projdualk → HKLineq → HKLeq` 路线建立的 Python 基线，保留完整约化 SVD、2q 个断点排序与二分查找、显式对角矩阵重构。补充参数验证、零半径、空输入和截断等式边界处理，不保留原来的边界报错。
-- `knorm_projection/projection.py`：优化后的 0.1 实现，一般 k 与 k=2 有独立的计算路径。
-- `tests/test_projection.py`：独立高精度参考、可行性、变分不等式、幂等性、Moreau/Fenchel 关系及边界测试。
-- `benchmarks/benchmark.py`：相同输入、精度门限下的 Python 基线与优化版计时。
-- `SOURCE_MANIFEST.json`：46 个原 MATLAB `.m` 文件的 SHA-256，以及四个快照文件名。
-- `tools/validate.py`：运行完整测试及源文件保护检查，保存日志与证据记录。
-- `results/`：每次运行产生独立目录。早期 quick 结果属于开发过程；本页指定的正式结果对应当前实现。
+- `knorm_projection/baseline.py` follows `Projdualk -> HKLineq -> HKLeq`: full reduced SVD, sorting and binary search over 2q breakpoints, and explicit diagonal reconstruction. It adds validation and necessary zero-radius, empty-input, scalar, and clipping-boundary handling.
+- `knorm_projection/projection.py` contains separate optimized general-k and k=2 paths.
+- `tests/test_projection.py` checks independent high-precision references, feasibility, variational inequalities, idempotence, Moreau/Fenchel relations, and boundary cases.
+- `benchmarks/benchmark.py` compares methods on identical inputs under the same accuracy gate.
+- `SOURCE_MANIFEST.json` records hashes of 46 original MATLAB files and identifies the four bundled snapshots.
+- `tools/validate.py` runs installed-package and preservation checks and saves verification records.
+- `reports/` contains the historical checks and formal benchmarks cited below. New benchmark runs create timestamped directories under `results/`.
 
-本版不移植 FMMC/ALM/PPA 外层求解器，不修改 MATLAB 文件，也不将 Python 基准解释为 MATLAB 加速结果。
+This version covers projection routines. It does not port FMMC, ALM, or PPA outer solvers, and its Python measurements do not establish MATLAB speedups.
 
-## 数学定义
+## Mathematical definition
 
-对 X∈C^(m×n)，q=min(m,n)，r≥0，整数 1≤k≤q，计算
+For $X\in\mathbb C^{m\times n}$, let $q=\min(m,n)$, $r\ge0$, and let k be an integer with $1\le k\le q$. Compute
 
-\[
+$$
 P=\operatorname*{argmin}_{Y}\frac12\|Y-X\|_F^2,
 \qquad \|Y\|_2\le r,\quad \|Y\|_*\le kr.
-\]
+$$
 
-这是矩阵 Ky Fan k-范数的对偶球投影，**不是**投到 `sum(top-k singular values) <= r` 的原范数球。
+These constraints define the dual ball of the matrix Ky Fan k-norm. They differ from the primal-ball constraint `sum(top-k singular values) <= r`.
 
-若 X=U diag(s) V*，则 P=U diag(p) V*，其中
+For $X=U\operatorname{Diag}(s)V^*$, the projection is $P=U\operatorname{Diag}(p)V^*$, where
 
-\[
-p_i=\min(r,\max(s_i-\theta,0)),\qquad
-\theta\ge0,quad \sum_i p_i\le kr,\quad
-\theta(\sum_i p_i-kr)=0.
-\]
+$$
+p_i=\min\{r,\max(s_i-\theta,0)\},\qquad
+\theta\ge0,\quad \sum_i p_i\le kr,\quad
+\theta\left(\sum_i p_i-kr\right)=0.
+$$
 
-`prox_ky_fan(X, r, k)` 计算 `prox_(r * ||.||_(k))(X)`，其中 `||.||_(k)` 为前 k 个奇异值之和。它直接用谱系数 `s-p` 重构，不先重构 P 再作 X-P。
+`prox_ky_fan(X, r, k)` is the proximal mapping of $r\|\cdot\|_{(k)}$, where the Ky Fan k-norm sums the k largest singular values. It reconstructs directly from `s-p`, avoiding subtraction of two separately reconstructed matrices.
 
-## 一般 k 的优化
+## General-k method
 
-先截断 `p=min(s,r)`；若总量约束已满足，直接返回。活动情况下求解分段线性、单调的阈值方程。
+First compute `p=min(s,r)` and return it when the sum constraint is satisfied. Otherwise, solve the monotone, piecewise-linear threshold equation.
 
-令 s_k 为第 k 大奇异值。任一所需根可在以下区间选择：
+Let $s_k$ be the kth largest singular value. A root can be chosen in
 
-\[
+$$
 \max(0,s_k-r)\le\theta\le s_k.
-\]
+$$
 
-左端保证前 k 项均饱和，或等于未满足总量约束的 θ=0；右端只有至多 k-1 项可能为正。以 `theta=s_k+r*t` 平移并按半径缩放后，搜索区间落在 [-1,0]。远离该区间的谱差可以在不改变该区间内投影值的前提下截断，避免直接用巨大绝对阈值相减。
+At the lower endpoint, either the first k entries are capped or the endpoint is zero, where the sum constraint is known to be violated. At the upper endpoint, at most k-1 entries can be positive. Substituting `theta=s_k+r*t` puts the search interval within [-1,0]. Gaps outside the relevant spectral range can be clipped without changing projection values over this interval. This avoids subtracting a large absolute threshold from similarly large values.
 
-实现采用 Newton 步与区间保护，每三步至多使用一次强制二分；自由集为空或 Newton 步越界时也退回二分。活跃集稳定后，以最小自由谱值为基准重新解质量约束，验证上界、零分量和总量。未能在最多 96 步内验证一个有效浮点活跃集时抛出 `FloatingPointError`，不把迭代上限当作成功。
+The method uses safeguarded Newton steps. Bisection is forced on every third iteration and is also used when the free set is empty or a Newton proposal leaves the bracket. Once the active set stabilizes, the method resolves the mass constraint relative to its smallest free spectral value and verifies the cap, zero, and total-mass conditions. Failure to verify a valid floating-point active set within 96 iterations raises `FloatingPointError`.
 
-每步对向量作 O(q) 工作；已排序数据直接取 s_k，未排序数据用 `partition` 选择。迭代次数依赖输入，**不宣称一般 k 的总成本无条件为 O(q)**。相比基线，避免重新排序 2q 个断点及在移动活跃集上反复执行完整验证。
+Each iteration performs O(q) vector work. Sorted input supplies $s_k$ directly; unsorted input uses `partition`. The iteration count depends on the input, so an unconditional O(q) cost is not claimed for the complete general-k method. The optimization avoids sorting 2q breakpoints and repeating full certification scans while the active set moves.
 
-## k=2 的专用优化
+## Specialized k=2 method
 
-奇异值降序排列时，先检查 `sum(min(s,r)) <= 2*r`。若不满足，令 Δ_c={x≥0:sum(x)=c}，计算 u=Π_(Δ_(2r))(s)：
+For descending singular values, first check `sum(min(s,r)) <= 2*r`. If this fails, define $\Delta_c=\{x\ge0:\sum_i x_i=c\}$ and compute $u=\Pi_{\Delta_{2r}}(s)$. Then
 
-\[
+$$
 p=\begin{cases}
 u,&u_1\le r,\\
-(r,\Pi_{\Delta_r}(s_{2:q})),&u_1>r.
+\left(r,\Pi_{\Delta_r}(s_{2:q})\right),&u_1>r.
 \end{cases}
-\]
+$$
 
-若 u_1>r，把第一项固定为 r 后，剩余质量从 `2r-u_1` 增至 r，尾部阈值只会下降，第一项仍满足上界活跃条件。尾部非负且总量为 r，自然不可能再超过单项上界 r。这给出精确的两次单纯形投影化简。
+If $u_1>r$, fixing the first entry at r increases the remaining mass from $2r-u_1$ to r. The tail threshold can only decrease, so the first entry remains capped. The nonnegative tail has total mass r and cannot violate an individual cap. This gives an exact reduction to at most two simplex projections.
 
-单纯形投影使用前缀和确定支撑，并再次平移以减少消减误差。已排序输入的这条路径为 O(q)；未排序向量会先排序。矩阵 SVD 路径的奇异值本来已排序。
+Prefix sums determine the simplex support, followed by recentering to reduce cancellation. The path costs O(q) for sorted input; unsorted vectors are sorted first. Singular values from the matrix SVD path are already sorted.
 
-**k=2 不等于秩为 2。** 例如 q>2 时，I 的投影为 `(2/q)*I`，仍是满秩。本版始终计算完整所需谱，不使用固定秩近似或部分 SVD。
+k=2 does not impose rank two. For q>2 and r=1, the identity projects to `(2/q)*I`, which has full rank. Version 0.1 computes the full required spectrum without fixed-rank approximation or partial SVD.
 
-## 矩阵计算与接口
+## Matrix operations and interface
 
-- 一般实数/复数矩形矩阵：`numpy.linalg.svd(..., full_matrices=False)`。
-- `hermitian=True`：显式启用 `eigh`，要求输入逐元素满足 X=X*。有小非对称误差时，应由调用者明确决定是否对称化。本程序不自动把任意输入换成它的对称部分。
-- 重构用按列缩放，省去显式对角矩阵；只略过投影公式产生的零谱系数，不以容差删除小正值。
-- 输入不被修改；输出为 float64 或 complex128。整数及低精度输入会转换到该精度。
-- r=0 时投影为零、近端映射为 X；空矩阵保持原形状，允许任意正整数 k；非空输入要求 1≤k≤q。
-- NaN、Inf、负半径、非法 k 和错误形状显式报错。分解返回非有限谱时也不返回假成功结果。
-- `return_info=True` 返回 `(结果, 字典)`，记录实际方法、标量迭代/单纯形次数、总量约束状态、非零谱系数数目、归一化可行性残差及矩阵分解方法。可行性残差不等于完整投影误差，也不替代最优性验证。
+- General real or complex rectangular input uses `numpy.linalg.svd(..., full_matrices=False)`.
+- `hermitian=True` selects `eigh` and requires an exactly Hermitian matrix. The caller decides whether to remove small asymmetry beforehand.
+- Reconstruction scales columns without forming a diagonal matrix. Only zero coefficients from the projection formula are omitted; no rank tolerance removes small positive values.
+- Inputs are preserved. Computation and output use float64 or complex128; integer and lower-precision inputs are converted.
+- At r=0, projection returns zero and the proximal mapping returns X. Empty matrices retain their shape and accept any positive integer k. Nonempty input requires $1\le k\le q$.
+- Nonfinite values, negative radii, invalid k, and invalid shapes raise errors. Nonfinite decomposition results are not reported as success.
+- `return_info=True` returns the result and diagnostics: method, scalar iteration/simplex counts, sum-constraint status, nonzero coefficient count, normalized feasibility residual, and decomposition method. Feasibility alone does not measure full projection error or establish optimality.
 
-NumPy 的约化 SVD、返回顺序与重构约定见 [SVD 官方文档](https://numpy.org/doc/stable/reference/generated/numpy.linalg.svd.html)；Hermitian 特征值分解约定见 [eigh 官方文档](https://numpy.org/doc/stable/reference/generated/numpy.linalg.eigh.html)。
+See NumPy's [SVD](https://numpy.org/doc/stable/reference/generated/numpy.linalg.svd.html) and [eigh](https://numpy.org/doc/stable/reference/generated/numpy.linalg.eigh.html) documentation for the decomposition conventions.
 
-## 已执行的验证与性能结果
+## Recorded verification and performance
 
-日期：2026-10-04。20 项 unittest 方法通过，覆盖小维度枚举的全部合法 k、独立 500 位 Decimal 阈值求解、重复谱与断点邻域、跨度极大的谱/半径、包含 10002 个分量的自由集、复数矩形矩阵、对称不定矩阵、幂等性、变分不等式和 Moreau/Fenchel 关系。另核对 46 个原 MATLAB 文件与 4 个快照的 SHA-256。
+Date: 2026-10-04. The 20 algorithm tests passed. Coverage includes all valid k for small enumerated spectra, an independent 500-digit Decimal threshold reference, repeated and near-breakpoint spectra, extreme spectrum/radius scales, a free cluster with 10002 entries, complex rectangular matrices, symmetric indefinite matrices, idempotence, variational inequalities, and Moreau/Fenchel relations. Hash checks also covered 46 original MATLAB files and four snapshots.
 
-验证记录：[validation.json](../reports/validation_20261004T103153162134Z/validation.json)、[测试日志](../reports/validation_20261004T103153162134Z/tests.log)。
+Records: [validation.json](../reports/validation_20261004T103153162134Z/validation.json) and [test log](../reports/validation_20261004T103153162134Z/tests.log).
 
-正式基准：[benchmark.json](../reports/benchmark_20261004T103212641128Z/benchmark.json)。种子 20261004，NumPy 2.3.5、OpenBLAS 0.3.30，BLAS 环境请求单线程，各方案预热后作 7 组计时，记录每次调用耗时的中位数。所有方案在相同输入、半径、k 和 1e-10 验证门限下比较；实际最大基线差约 6.05e-15，最大归一化可行性残差约 1.91e-14。分解、参数检查和重构都计入矩阵计时，额外的结果核验不计入。
+The formal [benchmark](../reports/benchmark_20261004T103212641128Z/benchmark.json) uses seed 20261004, NumPy 2.3.5, OpenBLAS 0.3.30, and a cooperative request for one BLAS thread. After warm-up, each method is timed in seven batches, reporting median per-call time. Methods use identical inputs, radii, k, and a 1e-10 accuracy gate. The largest recorded baseline discrepancy is about 6.05e-15; the largest normalized feasibility residual is about 1.91e-14. Matrix timings include validation, decomposition, and reconstruction, with additional result checks outside the timed region.
 
-| 测试对象 | Python 基线 | 0.1 对应路径 | 基线时间 / 0.1 时间 |
+| Case | Python baseline | Version 0.1 path | Baseline / optimized time |
 |---|---:|---:|---:|
-| 向量 q=4096，k=2 | 235.0 μs | k2：86.4 μs | 2.72 |
-| 向量 q=32768，k=2 | 1845.4 μs | k2：631.5 μs | 2.92 |
-| 向量 q=4096，k=1024 | 233.7 μs | general：166.0 μs | 1.41 |
-| 向量 q=32768，k=8192 | 1219.1 μs | general：1044.9 μs | 1.17 |
-| 对称矩阵 384×384，k=2 | 38.16 ms | eigh + k2：18.56 ms | 2.06 |
-| 对称矩阵 384×384，k=96 | 36.83 ms | eigh + general：20.44 ms | 1.80 |
+| Vector q=4096, k=2 | 235.0 us | k2: 86.4 us | 2.72 |
+| Vector q=32768, k=2 | 1845.4 us | k2: 631.5 us | 2.92 |
+| Vector q=4096, k=1024 | 233.7 us | general: 166.0 us | 1.41 |
+| Vector q=32768, k=8192 | 1219.1 us | general: 1044.9 us | 1.17 |
+| Symmetric 384-by-384 matrix, k=2 | 38.16 ms | eigh + k2: 18.56 ms | 2.06 |
+| Symmetric 384-by-384 matrix, k=96 | 36.83 ms | eigh + general: 20.44 ms | 1.80 |
 
-结果并非全部提速：q=256、k=64 的 general 路径约慢 12%；256×192、k=2 的通用矩阵 SVD 路径约慢 9%。该批对称矩阵的 eigh 路径均有收益，通用矩形矩阵路径的收益较小或不稳定。不能把向量内核加速比例当作矩阵投影或外层求解器的加速比例。
+Some cases did not improve: general k was about 12% slower for q=256, k=64, and the general matrix SVD path was about 9% slower for a 256-by-192 matrix with k=2. The tested symmetric cases benefited from eigh; rectangular-matrix gains were smaller or inconsistent. Vector-kernel ratios are not matrix-projection or outer-solver speedups.
 
-这些是本机、有限合成输入上的 Python 测量，不包含 MATLAB 运行、FMMC 迭代实验、所有浮点输入的证明或跨平台性能保证。原 MATLAB 程序保留作为来源，独立 Decimal/几何检查用于避免只把旧实现当作正确性标准。
+These finite synthetic Python experiments do not establish MATLAB performance, FMMC convergence, correctness for every floating-point input, or performance on other platforms. Independent Decimal and geometric checks supplement comparisons with the original implementation.

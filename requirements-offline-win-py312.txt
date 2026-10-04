@@ -1,2 +1,2 @@
 numpy==2.3.5 --hash=sha256:86945f2ee6d10cdfd67bcb4069c1662dd711f7e2a4343db5cecec06b87cf31aa
-./wheelhouse/knorm_projection-0.1-py3-none-any.whl --hash=sha256:5bc83e4235e8a13803bdae0173ff0d4b118f00a8cb3582c3a28f77e1b81fac41
+./wheelhouse/knorm_projection-0.1-py3-none-any.whl --hash=sha256:731b9e7cba79df4f1a4a700dccff4f436aec11638d561055f9a8654cc500a06a
