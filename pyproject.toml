@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "knorm-projection"
+version = "0.1"
+description = "Frobenius projection onto matrix Ky Fan k-norm dual balls"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["numpy>=2.0"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["knorm_projection*"]

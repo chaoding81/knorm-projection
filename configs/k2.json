@@ -1,0 +1,6 @@
+{
+  "format_version": 1,
+  "input": {"kind": "random", "shape": [12, 8], "seed": 20261004},
+  "projection": {"radius": 1.0, "k": 2, "method": "k2", "hermitian": false},
+  "output_dir": "../outputs"
+}

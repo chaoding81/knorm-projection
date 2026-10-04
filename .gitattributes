@@ -1,0 +1,3 @@
+# Release integrity uses byte-level SHA-256, including the original MATLAB files.
+# Preserve every payload byte across Windows and Unix checkouts.
+* -text

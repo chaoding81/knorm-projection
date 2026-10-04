@@ -1,0 +1,141 @@
+{
+  "configurations": [
+    {
+      "configuration": "general_k",
+      "version": "0.1",
+      "numpy": "2.3.5",
+      "package_file": "${VENV}/Lib/site-packages/knorm_projection/__init__.py",
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "shape": [
+        12,
+        8
+      ],
+      "input_dtype": "float64",
+      "projection_seconds": 0.0005508999965968542,
+      "projection_info": {
+        "version": "0.1",
+        "method": "general",
+        "iterations": 4,
+        "mass_constraint_active": true,
+        "nonzero_spectral_values": 4,
+        "feasibility_residual": 0.0,
+        "spectral_solver": "svd"
+      },
+      "feasibility_residual": 4.440892098500626e-16,
+      "moreau_relative_residual": 9.213558544715567e-16,
+      "input_sha256": "529f605869fd79142c3c4448928a01da3562311ad3e67d468150b3c11ea2ec46",
+      "output_directory": "${OUTPUTS}/general_k_20261004T110309341476Z",
+      "checks_passed": true
+    },
+    {
+      "configuration": "k2",
+      "version": "0.1",
+      "numpy": "2.3.5",
+      "package_file": "${VENV}/Lib/site-packages/knorm_projection/__init__.py",
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "shape": [
+        12,
+        8
+      ],
+      "input_dtype": "float64",
+      "projection_seconds": 0.00046669999574078247,
+      "projection_info": {
+        "version": "0.1",
+        "method": "k2",
+        "iterations": 2,
+        "mass_constraint_active": true,
+        "nonzero_spectral_values": 3,
+        "feasibility_residual": 0.0,
+        "spectral_solver": "svd"
+      },
+      "feasibility_residual": 2.220446049250313e-16,
+      "moreau_relative_residual": 9.278340419840406e-16,
+      "input_sha256": "529f605869fd79142c3c4448928a01da3562311ad3e67d468150b3c11ea2ec46",
+      "output_directory": "${OUTPUTS}/k2_20261004T110309512627Z",
+      "checks_passed": true
+    },
+    {
+      "configuration": "hermitian",
+      "version": "0.1",
+      "numpy": "2.3.5",
+      "package_file": "${VENV}/Lib/site-packages/knorm_projection/__init__.py",
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "shape": [
+        12,
+        12
+      ],
+      "input_dtype": "float64",
+      "projection_seconds": 0.000454399996669963,
+      "projection_info": {
+        "version": "0.1",
+        "method": "k2",
+        "iterations": 2,
+        "mass_constraint_active": true,
+        "nonzero_spectral_values": 5,
+        "feasibility_residual": 0.0,
+        "spectral_solver": "eigh"
+      },
+      "feasibility_residual": 1.3322676295501878e-15,
+      "moreau_relative_residual": 1.272865605575442e-15,
+      "input_sha256": "93f85092139a701f548d2e5d36315ef0cdb2dc7afbe50dd168a42b518b596618",
+      "output_directory": "${OUTPUTS}/hermitian_20261004T110309670759Z",
+      "checks_passed": true
+    },
+    {
+      "configuration": "from_file",
+      "version": "0.1",
+      "numpy": "2.3.5",
+      "package_file": "${VENV}/Lib/site-packages/knorm_projection/__init__.py",
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "shape": [
+        4,
+        4
+      ],
+      "input_dtype": "float64",
+      "projection_seconds": 0.000483600000734441,
+      "projection_info": {
+        "version": "0.1",
+        "method": "k2",
+        "iterations": 2,
+        "mass_constraint_active": true,
+        "nonzero_spectral_values": 2,
+        "feasibility_residual": 0.0,
+        "spectral_solver": "eigh"
+      },
+      "feasibility_residual": 0.0,
+      "moreau_relative_residual": 0.0,
+      "input_sha256": "e63b2e12eb49d2196e1a19ea479228b1d0dfac4a8bc1f0f716cdd3d7f6b6d81e",
+      "output_directory": "${OUTPUTS}/from_file_20261004T110309821483Z",
+      "checks_passed": true
+    }
+  ],
+  "replay": {
+    "version": "0.1",
+    "numpy": "2.3.5",
+    "package_file": "${VENV}/Lib/site-packages/knorm_projection/__init__.py",
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "shape": [
+      4,
+      4
+    ],
+    "input_dtype": "float64",
+    "projection_seconds": 0.0004645000008167699,
+    "projection_info": {
+      "version": "0.1",
+      "method": "k2",
+      "iterations": 2,
+      "mass_constraint_active": true,
+      "nonzero_spectral_values": 2,
+      "feasibility_residual": 0.0,
+      "spectral_solver": "eigh"
+    },
+    "feasibility_residual": 0.0,
+    "moreau_relative_residual": 0.0,
+    "input_sha256": "e63b2e12eb49d2196e1a19ea479228b1d0dfac4a8bc1f0f716cdd3d7f6b6d81e",
+    "output_directory": "${OUTPUTS}/from_file_20261004T110309821483Z/replays/config_20261004T110310085238Z",
+    "checks_passed": true
+  },
+  "from_file_hand_computed_fixture_passed": true,
+  "portable_replay_passed": true,
+  "publication_redaction": "Local absolute paths replaced by placeholders; numerical measurements and test outcomes are unchanged."
+}

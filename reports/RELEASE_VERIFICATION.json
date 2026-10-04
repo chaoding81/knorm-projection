@@ -1,0 +1,94 @@
+{
+  "version": "0.1",
+  "verified_utc": "2026-10-04T11:04:51.525750+00:00",
+  "clean_extracted_directory_used": true,
+  "path_with_spaces_tested": true,
+  "installation": {
+    "mode": "offline",
+    "windows_wrapper_executed": true,
+    "isolated_venv": true,
+    "system_site_packages": false,
+    "numpy": "2.3.5",
+    "package": "knorm-projection==0.1",
+    "pip_check_passed": true,
+    "installed_wheel_import_confirmed": true
+  },
+  "tests": {
+    "passed": true,
+    "count": 23,
+    "failures": 0,
+    "errors": 0,
+    "log": "portable_install/tests.log"
+  },
+  "examples": {
+    "configurations": [
+      "general_k",
+      "k2",
+      "hermitian",
+      "from_file"
+    ],
+    "all_passed": true,
+    "frozen_input_replay_passed": true,
+    "from_file_fixture_passed": true
+  },
+  "preservation": {
+    "matlab_files_verified": 46,
+    "snapshots_verified": 4,
+    "core_python_matches_v0_1": true
+  },
+  "dependency_verification": {
+    "bundled_numpy_sha256_verified_against_pypi": true,
+    "install_requires_hashes": true,
+    "online_lockfile_parsed_in_offline_dry_run": true
+  },
+  "limitations": [
+    "Windows x86-64 / CPython 3.12 was executed; macOS/Linux online scripts were not executed.",
+    "Python interpreter itself is not bundled.",
+    "No MATLAB or outer solver execution."
+  ],
+  "tested_payload_sha256": {
+    "benchmarks/benchmark.py": "ddd6a66acb5462a94fef6c285fc6d07efd98a1cd4487ac5faf13fa7d0d50a98f",
+    "CHANGELOG.md": "a6058eb60eb01137e5f3c50a0a78034413b82037b5595433713d3b5fff44ef14",
+    "configs/from_file.json": "1755ac1ad15dae1911a057f46edd3a2ca24104bc2567a4afdd50a4eaee0ff341",
+    "configs/general_k.json": "ba35d51c4fb02f55acecc9403538c6f7b929897acceeb6dd9c3daa9df6a83630",
+    "configs/hermitian.json": "c1fc1fd144a54d6e8335af0b7518e848c4885e12af8f9b524a9627d95b069b3f",
+    "configs/k2.json": "5616b593e24ac66d9efe8ccc3c3d3017d46c5cd0d912cba7100622d6d6494066",
+    "data/diagonal.npy": "52a0ff54637d03923e82b625e5ca5262ee853d9729746fa0430c41bcc5d7cc6f",
+    "docs/ALGORITHM_0.1.md": "0ca4b8e7210e59aa8a8f88353d1164c6cb74a232180dc788f4e3c374c0342d6b",
+    "docs/CONFIGURATION.md": "e5aef9d71fb0ee8dbe71f27f89b42c1cb6e60f68061a376b139331d39c48ceba",
+    "docs/TROUBLESHOOTING.md": "5059d995ef40389f478c323f0fc679a3c4178e3b37435b44d182f7642427f209",
+    "examples/demo.py": "de38cd2d82c68884fa99c094ad32d065ca4eec9d83cf2deb9fac5dff9bc435a4",
+    "examples/run_config.py": "54e13efadc4079e712789d1f839a8b0cf186bc52c6799afbf4a4e7f60138b413",
+    "install.py": "84f6337030905dcf3a8dd3e39c6f73ba25944681e1d0516a5f670257ed76cf59",
+    "knorm_projection/__init__.py": "af66afb3f703a3b0727546c98ddedc5967ad7df340602186740f28ab23321e86",
+    "knorm_projection/baseline.py": "6bba8d7234c43f8dea652fc492718fc7a42ef5d6f817064f5d4c279ec99d7387",
+    "knorm_projection/projection.py": "907fc43166b3def924b0ef9bb5a17580899fae3868129cfaff7888c35f576bbd",
+    "original_matlab/HKLeq.m": "3a5fc076f69e72f8cc21c6cd56ba355cdc91f494a81740e39a0d7902338be892",
+    "original_matlab/HKLineq.m": "b409856a97329d40bdc99214d1758adc57461eae5c234d8c18895527f4471360",
+    "original_matlab/MYknorm.m": "5e3ee5e6a2fbf1a1be0518a1be0a06617feb06d52a6b2df26f545c25d070281d",
+    "original_matlab/Projdualk.m": "d2054ab0ee46c8a937d031df345e3eac0e36acad700207dc3f9433964cc1310a",
+    "pyproject.toml": "0b1978a918bd8e2a093ff406c4f4b722032a331fc565bfef143f4522d290d63c",
+    "README.md": "92db48cc46aa2b7c64c48d6dc1a152d842580105126709e0ad937306fb153b11",
+    "reports/benchmark_20261004T103212641128Z/benchmark.json": "c0fb1fb629510f4e10dc89759a0351bd35f491b610fa6713e3ef02275c7ca27c",
+    "reports/benchmark_20261004T103212641128Z/manifest.json": "700f7d461bf09863565c1d74467feb8e3a4be0409ca0ae25fe9572f3e46390c4",
+    "reports/validation_20261004T103153162134Z/manifest.json": "e0f7fcd9b3bf5f10b1d4fd21a87104fb00c8055d7a4e5f447ced0895d4058881",
+    "reports/validation_20261004T103153162134Z/tests.log": "d40573759e7e1baa808bda84ec0873296883ce35783d427aa8f02d163de705be",
+    "reports/validation_20261004T103153162134Z/validation.json": "c91f82408de06565eed50fb43b27152e8b3a61a06fd0bc95747a09d494bc7863",
+    "requirements-offline-win-py312.txt": "981fdaa61cdb3f7d619e8b9262e006576fd5e5ef9a5185b17fa6c3d6d5d81649",
+    "requirements-online.txt": "5a69e15082af6b41b076c931b8a788573f5f3962e6e63d3c147aea7183bf2d80",
+    "requirements.txt": "2bbd6d7919c8b348732f9f5ac1fb79b96f58fe5c295d4ff94cf815147adc7afa",
+    "setup.ps1": "94fe2e9a9bde9914e6a3649c3f3f674e8593ed066369259cf9510b90cf412b3f",
+    "setup.sh": "d8c270f9442951e70b902a747b03abd9e72ace704a53745525572aac1a89f726",
+    "SOURCE_MANIFEST.json": "f0257886831a1b21232762bc284bd55800479fd977ac48092d538c1f3a32a191",
+    "tests/test_projection.py": "27a17672b4456e99615713d4ed2bc60624cf076fba6c44b2aa205317fb4c9cb5",
+    "tests/test_release_tools.py": "c49bf8d4330a0b5f1141de3fb2c1ea270ad5675a25d911108ea5cf2f51504aed",
+    "THIRD_PARTY_NOTICES.md": "312137b0e2bd2aef3ce6f4d696604976226ec8c2143c4dd280f4d8a42bce02c3",
+    "tools/pack_release.py": "82f40ad00d575815766bbbb99a6e15be1c0643a4c4d9b181483415cafa9f4032",
+    "tools/validate.py": "644cc4fd6effd2308b9262ed60ed2b22ee5d3b010566971205cb7e9c29d1cff7",
+    "tools/verify_release.py": "fb5456ac3a83419b26e77eb3fe2659e8ff69f31b453115eb9ee203b47660a34b",
+    "tools/verify_sources.py": "84a1abe59173fce13db386f3e9f3e2383e2d5b6d54381dcd38c4d76cfdce342d",
+    "wheelhouse/knorm_projection-0.1-py3-none-any.whl": "c4d93759f52c7dad1734963a586b35ebf4ac38429284268034592a22833d3023",
+    "wheelhouse/numpy-2.3.5-cp312-cp312-win_amd64.whl": "86945f2ee6d10cdfd67bcb4069c1662dd711f7e2a4343db5cecec06b87cf31aa",
+    "wheelhouse/NUMPY_PROVENANCE.json": "c288ae72e84e9b918a44040c573dbbd894c35c6ce15c22b2b65ad9bf620d7c00"
+  }
+}

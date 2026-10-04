@@ -1,0 +1,17 @@
+{
+  "version": "0.1",
+  "verified_utc": "2026-10-04T11:26:54.730657+00:00",
+  "tests_run": 23,
+  "tests_passed": true,
+  "matlab_snapshots_verified": 4,
+  "algorithm_source_unchanged": true,
+  "algorithm_sha256": {
+    "knorm_projection/__init__.py": "af66afb3f703a3b0727546c98ddedc5967ad7df340602186740f28ab23321e86",
+    "knorm_projection/projection.py": "907fc43166b3def924b0ef9bb5a17580899fae3868129cfaff7888c35f576bbd",
+    "knorm_projection/baseline.py": "6bba8d7234c43f8dea652fc492718fc7a42ef5d6f817064f5d4c279ec99d7387"
+  },
+  "wheel_sha256": "5bc83e4235e8a13803bdae0173ff0d4b118f00a8cb3582c3a28f77e1b81fac41",
+  "public_reports_have_no_local_absolute_paths": true,
+  "prior_numerical_measurements_unchanged": true,
+  "changes": "Publication README and report path redaction only; wheel metadata, dependency hashes and package checksums regenerated."
+}

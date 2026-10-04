@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "claim_id": "knorm-projection-v0.1-python-performance",
+  "repository": {
+    "commit": null,
+    "dirty": true
+  },
+  "command": [
+    "${PYTHON}",
+    "${SOURCE_ROOT}/benchmarks/benchmark.py",
+    "--repeats",
+    "7"
+  ],
+  "environment": {
+    "software": [
+      "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "NumPy 2.3.5"
+    ],
+    "hardware": "Windows-11-10.0.29680-SP0; Intel64 Family 6 Model 204 Stepping 2, GenuineIntel"
+  },
+  "mathematics": {
+    "assertion_tested": "Optimized general-k and k=2 projections meet the same accuracy gate as the Python baseline on identical inputs, with separately measured scalar and matrix timings.",
+    "coefficient_domain": "IEEE-754 float64",
+    "conventions": "Dual Ky Fan ball: spectral norm <= radius and nuclear norm <= k*radius; Frobenius metric.",
+    "inputs": [
+      "Seeded sorted uniform spectra",
+      "Seeded real symmetric and rectangular matrices"
+    ],
+    "bounds": {
+      "vector_sizes": [
+        256,
+        4096,
+        32768
+      ],
+      "matrix_orders": [
+        64,
+        192,
+        384
+      ],
+      "accuracy_gate": 1e-10,
+      "timing_repeats": 7,
+      "max_calls_per_sample": 128
+    },
+    "non_claims": [
+      "Synthetic finite cases, not solver end-to-end experiments",
+      "Single-process cooperative BLAS thread request",
+      "Baseline is a Python port, not MATLAB"
+    ]
+  },
+  "randomness": {
+    "used": true,
+    "generator": "NumPy default_rng/PCG64",
+    "seed": 20261004
+  },
+  "run": {
+    "started_at": "2026-10-04T10:32:12.641128+00:00",
+    "runtime_seconds": 7.520022199998493,
+    "exit_status": 0
+  },
+  "outputs": [
+    {
+      "path": "reports/benchmark_20261004T103212641128Z/benchmark.json",
+      "sha256": "d74fd523764dfb4cf977f7022bda3de41518269f8b3a767811a8050c9ea6144a",
+      "original_sha256_before_publication": "c0fb1fb629510f4e10dc89759a0351bd35f491b610fa6713e3ef02275c7ca27c"
+    }
+  ],
+  "checks": [
+    "Baseline agreement",
+    "Spectral and nuclear feasibility",
+    "Input code hashes unchanged"
+  ],
+  "result": "Accuracy checks and repeated timing completed for every recorded case.",
+  "residual_risks": [
+    "Synthetic finite cases, not solver end-to-end experiments",
+    "Single-process cooperative BLAS thread request",
+    "Baseline is a Python port, not MATLAB"
+  ],
+  "publication_redaction": "Local absolute paths replaced by placeholders; numerical measurements and test outcomes are unchanged.",
+  "publication_note": "Report locations and report hashes refer to this publication copy; original output hashes are retained."
+}

@@ -1,0 +1,25 @@
+test_baseline_matches_regular_domain (test_projection.ProjectionTests.test_baseline_matches_regular_domain) ... ok
+test_dense_free_cluster_keeps_mass_accuracy (test_projection.ProjectionTests.test_dense_free_cluster_keeps_mass_accuracy) ... ok
+test_diagnostics_and_forced_dispatch (test_projection.ProjectionTests.test_diagnostics_and_forced_dispatch) ... ok
+test_empty_matrices_keep_shape (test_projection.ProjectionTests.test_empty_matrices_keep_shape) ... ok
+test_general_small_exhaustive_spectra (test_projection.ProjectionTests.test_general_small_exhaustive_spectra) ... ok
+test_hand_computed_general_k (test_projection.ProjectionTests.test_hand_computed_general_k) ... ok
+test_hermitian_eigh_matches_svd_with_negative_and_repeated_eigenvalues (test_projection.ProjectionTests.test_hermitian_eigh_matches_svd_with_negative_and_repeated_eigenvalues) ... ok
+test_hermitian_flag_does_not_silently_symmetrize (test_projection.ProjectionTests.test_hermitian_flag_does_not_silently_symmetrize) ... ok
+test_invalid_parameters_fail_explicitly (test_projection.ProjectionTests.test_invalid_parameters_fail_explicitly) ... ok
+test_k2_both_special_branches (test_projection.ProjectionTests.test_k2_both_special_branches) ... ok
+test_k2_projection_can_be_full_rank (test_projection.ProjectionTests.test_k2_projection_can_be_full_rank) ... ok
+test_large_common_offset_and_tiny_radius (test_projection.ProjectionTests.test_large_common_offset_and_tiny_radius) ... ok
+test_large_finite_hermitian_result_does_not_overflow_when_symmetrizing (test_projection.ProjectionTests.test_large_finite_hermitian_result_does_not_overflow_when_symmetrizing) ... ok
+test_matrix_shapes_complex_values_and_moreau_optimality (test_projection.ProjectionTests.test_matrix_shapes_complex_values_and_moreau_optimality) ... ok
+test_neighbors_of_zero_and_cap_breakpoints (test_projection.ProjectionTests.test_neighbors_of_zero_and_cap_breakpoints) ... ok
+test_permutation_equivariance_and_no_input_mutation (test_projection.ProjectionTests.test_permutation_equivariance_and_no_input_mutation) ... ok
+test_projection_variational_inequality (test_projection.ProjectionTests.test_projection_variational_inequality) ... ok
+test_random_general_k_and_k2_against_oracle (test_projection.ProjectionTests.test_random_general_k_and_k2_against_oracle) ... ok
+test_scalar_and_zero_radius (test_projection.ProjectionTests.test_scalar_and_zero_radius) ... ok
+test_small_positive_components_are_not_rank_truncated (test_projection.ProjectionTests.test_small_positive_components_are_not_rank_truncated) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.393s
+
+OK

@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "claim_id": "knorm-projection-v0.1-correctness-and-preservation",
+  "repository": {
+    "commit": null,
+    "dirty": true
+  },
+  "command": [
+    "${PYTHON}",
+    "${SOURCE_ROOT}/tools/validate.py"
+  ],
+  "environment": {
+    "software": [
+      "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "NumPy 2.3.5"
+    ],
+    "hardware": "Windows-11-10.0.29680-SP0; Intel64 Family 6 Model 204 Stepping 2, GenuineIntel"
+  },
+  "mathematics": {
+    "assertion_tested": "The Python 0.1 projection implementations satisfy the independent finite reference and invariant tests; original MATLAB sources and snapshots are byte-preserved.",
+    "coefficient_domain": "float64/complex128, with independent Decimal references at 500 digits",
+    "conventions": "Frobenius projection onto spectral norm <= radius and nuclear norm <= k*radius.",
+    "inputs": [
+      "General-k small exhaustive spectra and decimal oracle",
+      "k=2 specialization and forced general comparison",
+      "Zero/empty/scalar cases and invalid inputs",
+      "Extreme scales and repeated/near-breakpoint spectra",
+      "Variational inequality and Moreau/Fenchel identity",
+      "Real/complex rectangular and exactly Hermitian inputs",
+      "No rank truncation or input mutation"
+    ],
+    "bounds": {
+      "test_methods": 20,
+      "exhaustive_vector_lengths": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "cluster_vector_length": 10002,
+      "largest_matrix_entry_tested": "1.7e308",
+      "decimal_bisection_cap": 1800
+    },
+    "non_claims": [
+      "No MATLAB execution",
+      "Finite tests do not establish all floating-point inputs",
+      "No solver convergence or solver end-to-end speed claim"
+    ]
+  },
+  "randomness": {
+    "used": true,
+    "generator": "NumPy default_rng/PCG64",
+    "seed": [
+      20261004,
+      83,
+      4,
+      21,
+      37
+    ]
+  },
+  "run": {
+    "started_at": "2026-10-04T10:31:53.162134+00:00",
+    "runtime_seconds": 0.5040015000049607,
+    "exit_status": 0
+  },
+  "outputs": [
+    {
+      "path": "reports/validation_20261004T103153162134Z/validation.json",
+      "sha256": "c91f82408de06565eed50fb43b27152e8b3a61a06fd0bc95747a09d494bc7863",
+      "original_sha256_before_publication": "c91f82408de06565eed50fb43b27152e8b3a61a06fd0bc95747a09d494bc7863"
+    },
+    {
+      "path": "reports/validation_20261004T103153162134Z/tests.log",
+      "sha256": "d40573759e7e1baa808bda84ec0873296883ce35783d427aa8f02d163de705be",
+      "original_sha256_before_publication": "d40573759e7e1baa808bda84ec0873296883ce35783d427aa8f02d163de705be"
+    }
+  ],
+  "checks": [
+    "General-k small exhaustive spectra and decimal oracle",
+    "k=2 specialization and forced general comparison",
+    "Zero/empty/scalar cases and invalid inputs",
+    "Extreme scales and repeated/near-breakpoint spectra",
+    "Variational inequality and Moreau/Fenchel identity",
+    "Real/complex rectangular and exactly Hermitian inputs",
+    "No rank truncation or input mutation",
+    "Original source SHA-256 verification"
+  ],
+  "result": "All verification checks passed.",
+  "residual_risks": [
+    "NumPy 2.3.5 on this Windows host is the tested runtime",
+    "Version-1 manifest records input hashes in validation.json, not a managed-runner attestation"
+  ],
+  "publication_redaction": "Local absolute paths replaced by placeholders; numerical measurements and test outcomes are unchanged.",
+  "publication_note": "Report locations and report hashes refer to this publication copy; original output hashes are retained."
+}

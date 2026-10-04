@@ -1,0 +1,35 @@
+{
+  "version": "0.1",
+  "passed": true,
+  "tests_run": 20,
+  "failures": 0,
+  "errors": 0,
+  "source_preservation": {
+    "original_matlab_files": 46,
+    "byte_identical_snapshots": 4,
+    "preserved": true
+  },
+  "source_sha256": {
+    "knorm_projection/__init__.py": "af66afb3f703a3b0727546c98ddedc5967ad7df340602186740f28ab23321e86",
+    "knorm_projection/baseline.py": "6bba8d7234c43f8dea652fc492718fc7a42ef5d6f817064f5d4c279ec99d7387",
+    "knorm_projection/projection.py": "907fc43166b3def924b0ef9bb5a17580899fae3868129cfaff7888c35f576bbd",
+    "tests/test_projection.py": "27a17672b4456e99615713d4ed2bc60624cf076fba6c44b2aa205317fb4c9cb5",
+    "tools/validate.py": "40ffa3aa61193c3c51ea1512233252586d2ed2e3c4bd9855d5cee2cb76b0a08b",
+    "tools/verify_sources.py": "05c129a86b297c36787b15efe360da7c09868555809f92a9f963d5e99c27a797",
+    "benchmarks/benchmark.py": "ddd6a66acb5462a94fef6c285fc6d07efd98a1cd4487ac5faf13fa7d0d50a98f"
+  },
+  "sources_unchanged_during_run": true,
+  "matlab_executed": false,
+  "numpy": "2.3.5",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "tolerance": "Most numerical assertions use 5e-12 in normalized units; independent decimal root precision is 500 digits and its mass target is 1e-40 * radius.",
+  "coverage": [
+    "General-k small exhaustive spectra and decimal oracle",
+    "k=2 specialization and forced general comparison",
+    "Zero/empty/scalar cases and invalid inputs",
+    "Extreme scales and repeated/near-breakpoint spectra",
+    "Variational inequality and Moreau/Fenchel identity",
+    "Real/complex rectangular and exactly Hermitian inputs",
+    "No rank truncation or input mutation"
+  ]
+}

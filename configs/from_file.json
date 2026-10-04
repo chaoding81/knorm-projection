@@ -1,0 +1,6 @@
+{
+  "format_version": 1,
+  "input": {"kind": "npy", "path": "../data/diagonal.npy"},
+  "projection": {"radius": 1.0, "k": 2, "method": "k2", "hermitian": true},
+  "output_dir": "../outputs"
+}

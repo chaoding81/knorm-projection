@@ -1,0 +1,24 @@
+{
+  "version": "0.1",
+  "passed": true,
+  "tests_run": 23,
+  "failures": 0,
+  "errors": 0,
+  "package_file": "${VENV}/Lib/site-packages/knorm_projection/__init__.py",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "numpy": "2.3.5",
+  "release_integrity": {
+    "version": "0.1",
+    "files_checked": 43,
+    "integrity_ok": true
+  },
+  "source_snapshots": {
+    "preserved": true,
+    "bundled_snapshots_checked": 4,
+    "original_files_checked": 0,
+    "original_tree_check": "not requested; portable snapshot check only"
+  },
+  "installed_source_bytes_match": true,
+  "matlab_executed": false,
+  "publication_redaction": "Local absolute paths replaced by placeholders; numerical measurements and test outcomes are unchanged."
+}
